@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//����ѭ��������
+//单向循环单链表
 typedef int ElemType;
 #define TRUE 1
 #define FALSE 0
@@ -15,12 +15,12 @@ typedef struct LNode
     struct LNode *next;
 } LNode;
 
-int visit(ElemType *x)
+int visit(ElemType *x)//用于作为函数参数
 {
     printf("%d\n", *x);
     return OK;
 }
-int equal(ElemType a, ElemType b)
+int equal(ElemType a, ElemType b)//同用于作为函数参数
 {
     if (a == b)
         return TRUE;
@@ -30,13 +30,14 @@ int equal(ElemType a, ElemType b)
 
 LNode *InitList()
 {
+    //头节点数据域为空
     LNode *Lhead = (LNode *)malloc(sizeof(LNode));
     if (!Lhead)
         exit(OVERFLOW);
     Lhead->next = Lhead;
     return Lhead;
 }
-int ListEmpty(LNode *L)
+int ListEmpty(LNode *L)//判空
 {
     if (L->next == L)
         return TRUE;
@@ -73,7 +74,7 @@ int ListInsert(LNode *L, int i, ElemType e)
     NewNode->data = e;
     return OK;
 }
-int ListDelete1(LNode *L, int i, ElemType *e) //�������±�ɾ����ӦԪ��
+int ListDelete1(LNode *L, int i, ElemType *e) //按传入下标删除对应元素
 {
     if (ListEmpty(L) || i < 1 || i > ListLength(L))
         return FAIL;
@@ -89,7 +90,7 @@ int ListDelete1(LNode *L, int i, ElemType *e) //�������±�ɾ����ӦԪ��
     free(q);
     return OK;
 }
-int ListDelete2(LNode *L, LNode *r, ElemType *e) //�������ַɾ����ӦԪ��
+int ListDelete2(LNode *L, LNode *r, ElemType *e) //按传入地址删除对应元素
 {
     LNode *p = L;
     int i;
@@ -107,7 +108,7 @@ int ListDelete2(LNode *L, LNode *r, ElemType *e) //�������ַɾ����ӦԪ��
     }
     return FAIL;
 }
-int DestroyList(LNode *L)
+int DestroyList(LNode *L)//删除链表
 {
     LNode *p = L;
     while (p->next != L)
@@ -119,7 +120,7 @@ int DestroyList(LNode *L)
     free(p);
     return OK;
 }
-int ClearList(LNode *L)
+int ClearList(LNode *L)//清空链表
 {
     LNode *p = L;
     while (p->next != L)
@@ -129,7 +130,7 @@ int ClearList(LNode *L)
     }
     return OK;
 }
-int GetElem(LNode *L, int i, ElemType *e)
+int GetElem(LNode *L, int i, ElemType *e)//得到第i位元素
 {
     if (i > ListLength(L))
         return FAIL;
@@ -142,7 +143,7 @@ int GetElem(LNode *L, int i, ElemType *e)
     *e = p->data;
     return OK;
 }
-int ListTraverse(LNode *L, int (*visit)(ElemType *))
+int ListTraverse(LNode *L, int (*visit)(ElemType *))//遍历对每个元素进行visit操作
 {
     LNode *p = L;
     int i;
@@ -154,7 +155,7 @@ int ListTraverse(LNode *L, int (*visit)(ElemType *))
     }
     return OK;
 }
-int LocateElem(LNode *L, ElemType e, int (*compare)(ElemType, ElemType))
+int LocateElem(LNode *L, ElemType e, int (*compare)(ElemType, ElemType))//找到第一个符合与e满足compare条件的元素
 {
     LNode *p = L;
     int i;
@@ -166,7 +167,7 @@ int LocateElem(LNode *L, ElemType e, int (*compare)(ElemType, ElemType))
     }
     return 0;
 }
-int PriorElem(LNode *L, ElemType cur_e, ElemType *pre_e)
+int PriorElem(LNode *L, ElemType cur_e, ElemType *pre_e)//返回前一个元素
 {
     int pos = LocateElem(L, cur_e, equal);
     if (pos == 0 || pos == 1)
@@ -175,7 +176,7 @@ int PriorElem(LNode *L, ElemType cur_e, ElemType *pre_e)
         GetElem(L, pos - 1, pre_e);
     return OK;
 }
-int NextElem(LNode *L, ElemType cur_e, ElemType *next_e)
+int NextElem(LNode *L, ElemType cur_e, ElemType *next_e)//返回后一个元素
 {
     int pos = LocateElem(L, cur_e, equal);
     if (pos == 0 || pos == ListLength(L))
@@ -185,6 +186,7 @@ int NextElem(LNode *L, ElemType cur_e, ElemType *next_e)
     return OK;
 }
 
+//实现约瑟夫环问题
 int main()
 {
     LNode *a = InitList();
