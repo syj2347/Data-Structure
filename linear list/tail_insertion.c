@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//µ¥ÏòÑ­»·µ¥Á´±í
+//å•å‘å¾ªç¯å•é“¾è¡¨
 typedef int ElemType;
 #define TRUE 1
 #define FALSE 0
@@ -15,12 +15,12 @@ typedef struct LNode
     struct LNode *next;
 } LNode, *LinkList;
 
-int visit(ElemType *x) //ÓÃÓÚ×÷Îªº¯Êı²ÎÊı
+int visit(ElemType *x) //ç”¨äºä½œä¸ºå‡½æ•°å‚æ•°
 {
     printf("%d\n", *x);
     return OK;
 }
-int equal(ElemType a, ElemType b) //Í¬ÓÃÓÚ×÷Îªº¯Êı²ÎÊı
+int equal(ElemType a, ElemType b) //åŒç”¨äºä½œä¸ºå‡½æ•°å‚æ•°
 {
     if (a == b)
         return TRUE;
@@ -30,14 +30,14 @@ int equal(ElemType a, ElemType b) //Í¬ÓÃÓÚ×÷Îªº¯Êı²ÎÊı
 
 LNode *InitList()
 {
-    //Í·½ÚµãÊı¾İÓòÎª¿Õ
+    //å¤´èŠ‚ç‚¹æ•°æ®åŸŸä¸ºç©º
     LNode *Lhead = (LNode *)malloc(sizeof(LNode));
     if (!Lhead)
         exit(OVERFLOW);
     Lhead->next = Lhead;
     return Lhead;
 }
-int ListEmpty(LNode *L) //ÅĞ¿Õ
+int ListEmpty(LNode *L) //åˆ¤ç©º
 {
     if (L->next == L)
         return TRUE;
@@ -74,7 +74,7 @@ int ListInsert(LNode *L, int i, ElemType e)
     NewNode->data = e;
     return OK;
 }
-int ListDelete1(LNode *L, int i, ElemType *e) //°´´«ÈëÏÂ±êÉ¾³ı¶ÔÓ¦ÔªËØ
+int ListDelete1(LNode *L, int i, ElemType *e) //æŒ‰ä¼ å…¥ä¸‹æ ‡åˆ é™¤å¯¹åº”å…ƒç´ 
 {
     if (ListEmpty(L) || i < 1 || i > ListLength(L))
         return FAIL;
@@ -90,7 +90,7 @@ int ListDelete1(LNode *L, int i, ElemType *e) //°´´«ÈëÏÂ±êÉ¾³ı¶ÔÓ¦ÔªËØ
     free(q);
     return OK;
 }
-int ListDelete2(LNode *L, LNode *r, ElemType *e) //°´´«ÈëµØÖ·É¾³ı¶ÔÓ¦ÔªËØ
+int ListDelete2(LNode *L, LNode *r, ElemType *e) //æŒ‰ä¼ å…¥åœ°å€åˆ é™¤å¯¹åº”å…ƒç´ 
 {
     LNode *p = L;
     int i;
@@ -108,7 +108,7 @@ int ListDelete2(LNode *L, LNode *r, ElemType *e) //°´´«ÈëµØÖ·É¾³ı¶ÔÓ¦ÔªËØ
     }
     return FAIL;
 }
-int DestroyList(LNode *L) //É¾³ıÁ´±í
+int DestroyList(LNode *L) //åˆ é™¤é“¾è¡¨
 {
     LNode *p = L;
     while (p->next != L)
@@ -120,7 +120,7 @@ int DestroyList(LNode *L) //É¾³ıÁ´±í
     free(p);
     return OK;
 }
-int ClearList(LNode *L) //Çå¿ÕÁ´±í
+int ClearList(LNode *L) //æ¸…ç©ºé“¾è¡¨
 {
     LNode *p = L;
     while (p->next != L)
@@ -130,7 +130,7 @@ int ClearList(LNode *L) //Çå¿ÕÁ´±í
     }
     return OK;
 }
-int GetElem(LNode *L, int i, ElemType *e) //µÃµ½µÚiÎ»ÔªËØ
+int GetElem(LNode *L, int i, ElemType *e) //å¾—åˆ°ç¬¬iä½å…ƒç´ 
 {
     if (i > ListLength(L))
         return FAIL;
@@ -143,7 +143,7 @@ int GetElem(LNode *L, int i, ElemType *e) //µÃµ½µÚiÎ»ÔªËØ
     *e = p->data;
     return OK;
 }
-int ListTraverse(LNode *L, int (*visit)(ElemType *)) //±éÀú¶ÔÃ¿¸öÔªËØ½øĞĞvisit²Ù×÷
+int ListTraverse(LNode *L, int (*visit)(ElemType *)) //éå†å¯¹æ¯ä¸ªå…ƒç´ è¿›è¡Œvisitæ“ä½œ
 {
     LNode *p = L;
     int i;
@@ -156,7 +156,7 @@ int ListTraverse(LNode *L, int (*visit)(ElemType *)) //±éÀú¶ÔÃ¿¸öÔªËØ½øĞĞvisit²Ù
     }
     return OK;
 }
-int LocateElem(LNode *L, ElemType e, int (*compare)(ElemType, ElemType)) //ÕÒµ½µÚÒ»¸ö·ûºÏÓëeÂú×ãcompareÌõ¼şµÄÔªËØ
+int LocateElem(LNode *L, ElemType e, int (*compare)(ElemType, ElemType)) //æ‰¾åˆ°ç¬¬ä¸€ä¸ªç¬¦åˆä¸eæ»¡è¶³compareæ¡ä»¶çš„å…ƒç´ 
 {
     LNode *p = L;
     int i;
@@ -168,7 +168,7 @@ int LocateElem(LNode *L, ElemType e, int (*compare)(ElemType, ElemType)) //ÕÒµ½µ
     }
     return 0;
 }
-int PriorElem(LNode *L, ElemType cur_e, ElemType *pre_e) //·µ»ØÇ°Ò»¸öÔªËØ
+int PriorElem(LNode *L, ElemType cur_e, ElemType *pre_e) //è¿”å›å‰ä¸€ä¸ªå…ƒç´ 
 {
     int pos = LocateElem(L, cur_e, equal);
     if (pos == 0 || pos == 1)
@@ -177,7 +177,7 @@ int PriorElem(LNode *L, ElemType cur_e, ElemType *pre_e) //·µ»ØÇ°Ò»¸öÔªËØ
         GetElem(L, pos - 1, pre_e);
     return OK;
 }
-int NextElem(LNode *L, ElemType cur_e, ElemType *next_e) //·µ»ØºóÒ»¸öÔªËØ
+int NextElem(LNode *L, ElemType cur_e, ElemType *next_e) //è¿”å›åä¸€ä¸ªå…ƒç´ 
 {
     int pos = LocateElem(L, cur_e, equal);
     if (pos == 0 || pos == ListLength(L))
@@ -186,7 +186,7 @@ int NextElem(LNode *L, ElemType cur_e, ElemType *next_e) //·µ»ØºóÒ»¸öÔªËØ
         GetElem(L, pos + 1, next_e);
     return OK;
 }
-LinkList MergeList(LNode *a, LNode *b) //¶ÔÓĞĞò(·Çµİ¼õ)Á´±í×öºÏ²¢
+LinkList MergeList(LNode *a, LNode *b) //å¯¹æœ‰åº(éé€’å‡)é“¾è¡¨åšåˆå¹¶
 {
     LNode *pa = a->next;
     LNode *pb = b->next;
@@ -211,7 +211,7 @@ LinkList MergeList(LNode *a, LNode *b) //¶ÔÓĞĞò(·Çµİ¼õ)Á´±í×öºÏ²¢
     free(b);
     return a;
 }
-void ReverseList(LinkList a) //¾ÍµØÄæÖÃÑ­»·µ¥Á´±í
+void ReverseList(LinkList a) //å°±åœ°é€†ç½®å¾ªç¯å•é“¾è¡¨
 {
     if (ListEmpty(a))
         return;
@@ -228,7 +228,7 @@ void ReverseList(LinkList a) //¾ÍµØÄæÖÃÑ­»·µ¥Á´±í
     }
 }
 
-//ÓÃÎ²²å·¨ÕıĞò½¨Á¢µ¥Á´±í£¬nÎªÔªËØ¸öÊı£¬ÇÒĞèÒªÊäÈë¶ÔÓ¦¸öÊıµÄÔªËØ
+//ç”¨å°¾æ’æ³•æ­£åºå»ºç«‹å•é“¾è¡¨ï¼Œnä¸ºå…ƒç´ ä¸ªæ•°ï¼Œä¸”éœ€è¦è¾“å…¥å¯¹åº”ä¸ªæ•°çš„å…ƒç´ 
 LinkList CreateList(int n)
 {
     LinkList a = InitList();
@@ -250,5 +250,6 @@ int main()
 {
     LinkList a = CreateList(4);
     ListTraverse(a, visit);
+    DestroyList(a);
     return 0;
 }
