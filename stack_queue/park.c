@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//ͣ��������
+//停车场问题
 typedef struct
 {
     int id;
@@ -30,7 +30,7 @@ int visit(SElemType *e)
     printf("%d %d %d\n", e->id, e->a, e->d);
     return OK;
 }
-int compareid(Car x, Car y)
+int compareid(Car x, Car y) //专用于查询Car结构体作为数据成员时位置的比较函数
 {
     if (x.id == y.id)
         return 1;
@@ -96,7 +96,7 @@ int StackLength(SqStack *s)
 {
     return (s->top) - (s->base);
 }
-int StackElemPos(SqStack *s, SElemType e, int (*compare)(SElemType, SElemType))
+int StackElemPos(SqStack *s, SElemType e, int (*compare)(SElemType, SElemType)) //返回与compare函数匹配的成员位置
 {
     int i = 1;
     int len = StackLength(s);
@@ -162,7 +162,7 @@ int DeQueue(LinkQueue *q, QElemType *e)
     free(p);
     return OK;
 }
-int QueueElemPos(LinkQueue *q, QElemType e, int (*compare)(QElemType, QElemType))
+int QueueElemPos(LinkQueue *q, QElemType e, int (*compare)(QElemType, QElemType)) //返回与compare函数匹配的成员位置
 {
     int i = 1;
     QNode *p = q->front->next;
@@ -178,19 +178,22 @@ int QueueElemPos(LinkQueue *q, QElemType e, int (*compare)(QElemType, QElemType)
     return 0;
 }
 
+//输入数据
+/*2
+('A',1,5),('A',2,10),('D',1,15),('A',3,20),('A',4,25),('A',5,30),('D',2,35),('D',4,40),('E',0,0)*/
 int main()
 {
     int n;
     scanf("%d", &n);
-    getchar(); //��ȡ���з�
+    getchar(); //读取换行符
     SqStack *park = InitStack();
     LinkQueue *channel = InitQueue();
     SqStack *out = InitStack();
     char x;
     int t, ttime;
-    while (scanf("%c %d %d", &x, &t, &ttime))
+    while (scanf("('%c',%d,%d)", &x, &t, &ttime))
     {
-        getchar(); //��ȡ���з�
+        getchar(); //读取逗号(最后一个循环读取换行符)
         Car cc;
         cc.id = t;
         if (x == 'A')
@@ -199,7 +202,7 @@ int main()
             if (StackLength(park) < n)
             {
                 Push(park, cc);
-                printf("park:%d\n", StackElemPos(park, cc, compareid)); //����id���ض�Ӧλ��
+                printf("park:%d\n", StackElemPos(park, cc, compareid)); //根据id返回对应位置
             }
             else
             {
