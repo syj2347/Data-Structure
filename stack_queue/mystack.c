@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//À≥–Ú’ªµƒø‚ µœ÷
 #define STACK_INIT_SIZE 100
 #define STACKINCREMENT 10
 typedef int SElemType;
