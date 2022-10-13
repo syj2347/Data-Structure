@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//链式队列的实现
 typedef int QElemType;
 #define TRUE 1
 #define FALSE 0
